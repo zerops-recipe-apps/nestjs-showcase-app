@@ -1,0 +1,31 @@
+zerops:
+  - setup: dev
+    build:
+      base: nodejs@22
+      buildCommands:
+        - npm install
+      deployFiles: ./
+      cache:
+        - node_modules
+    run:
+      base: nodejs@22
+      ports:
+        - port: 5173
+          httpSupport: true
+      start: zsc noop --silent
+
+  - setup: prod
+    build:
+      base: nodejs@22
+      buildCommands:
+        - npm ci
+        - npm run build
+      deployFiles:
+        - dist
+      cache:
+        - node_modules
+      envVariables:
+        VITE_API_URL: ${API_URL}
+    run:
+      base: static
+      documentRoot: dist
