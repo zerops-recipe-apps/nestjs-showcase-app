@@ -153,16 +153,11 @@ The `dist/~` shape is the canonical pairing with `base: static`; without the tra
 
 <!-- #ZEROPS_EXTRACT_START:knowledge-base# -->
 
-### `VITE_API_URL` change silently returns stale data until the next build
+### `${API_URL}` resolves at project create, not on subdomain rotation
 
-Vite bakes `VITE_*` env vars into the JS bundle as string literals at build time. After `npm run build`, the value is gone — the `base: static` runtime is Nginx serving HTML and JS, with no process to re-read OS env. Symptom: rotating `API_URL` in the Zerops UI and restarting the prod app returns the OLD origin from every fetch; `curl https://<app>/index-<hash>.js` still shows the prior URL hardcoded.
+The project-scope `API_URL` / `FRONTEND_URL` constants compose from `${zeropsSubdomainHost}` once at provision time and don't auto-track if you later swap `apistage` for a custom domain. The SPA bakes `VITE_API_URL: ${API_URL}` at build time, so swapping the api origin means updating `API_URL` in the Zerops UI's project envs AND redeploying `prod` so a fresh build picks up the new value. Dev is exempt — Vite is long-lived, so a `VITE_API_URL` change plus a Vite restart is enough.
 
-Re-deploy `prod` so a fresh build picks up the new env. The dev workspace is different — Vite is a long-running process there, so a `VITE_API_URL` change plus a Vite restart is enough; no re-deploy needed.
+### `base: static` is Nginx — no Node at request time
 
-> [!CAUTION]
-> A `.env` file checked into the repo wins over `build.envVariables` because Vite reads it during `npm run build` inside the build container. Delete any tracked `.env` before pushing, or the platform-injected `${API_URL}` never reaches the bundle.
-
-### `start:` directive on `base: static` is silently ignored
-
-The static runtime ships Nginx; there is no shell that runs `start:`. A `start: npm run preview` (or any other command) in the `prod` setup parses fine but never fires — the dashboard serves but every dynamic-runtime expectation from Heroku / Render porting habits silently breaks. The bundler must compile to a fully static `dist/` tree and ship it via `deployFiles: dist/~`; runtime SSR needs a Node base (`base: nodejs@22` + a long-running `start:`), not the static one.
+The app ships a compiled Vite bundle to an Nginx-backed runtime: ~2 MB RAM per replica, SPA fallback built in. Anything that needs request-time code — server-rendered routes (Next.js / Nuxt server components), dynamic redirects, edge functions, BFF endpoints — requires switching to `base: nodejs@22` with an explicit `start:` and the runtime cost balloons to ~80 MB per replica. If your product is hybrid SSR/SPA, plan the runtime model up front rather than as an afterthought.
 <!-- #ZEROPS_EXTRACT_END:knowledge-base# -->
