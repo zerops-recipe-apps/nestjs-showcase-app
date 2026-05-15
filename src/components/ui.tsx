@@ -8,22 +8,21 @@ import { forwardRef, type ButtonHTMLAttributes, type HTMLAttributes, type InputH
  * rather than hardcoded hex codes or Tailwind palette names.
  */
 
-type CardProps = HTMLAttributes<HTMLElement> & { as?: keyof JSX.IntrinsicElements };
+type CardProps = HTMLAttributes<HTMLElement>;
 
-export function Card({ as, className = '', children, ...rest }: CardProps) {
-  const Tag = (as ?? 'section') as keyof JSX.IntrinsicElements;
+export function Card({ className = '', children, ...rest }: CardProps) {
   return (
-    <Tag
+    <section
       className={[
         'rounded-[var(--zerops-radius-card)] border bg-[var(--zerops-surface)] p-6',
-        'border-[var(--zerops-outline-variant)] shadow-sm/0',
+        'border-[var(--zerops-outline-variant)]',
         'flex flex-col gap-4',
         className,
       ].join(' ')}
       {...rest}
     >
       {children}
-    </Tag>
+    </section>
   );
 }
 
