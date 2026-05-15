@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Zerops design tokens. Token names follow the design-system spec; the
+ * Tailwind utilities consume them via `bg-[var(--zerops-primary)]` etc
+ * so the SPA never hardcodes hex codes or Tailwind palette names.
+ */
+:root {
+  color-scheme: light dark;
+
+  --zerops-primary: #00A49A;
+  --zerops-primary-on: #FFFFFF;
+  --zerops-teal: #00CCBB;
+  --zerops-success: #00CC55;
+  --zerops-warning: #E6A100;
+  --zerops-error: #BE0E14;
+  --zerops-tertiary: #B8006B;
+
+  --zerops-radius-card: 12px;
+  --zerops-radius-pill: 9999px;
+
+  --zerops-font-head: 'Geologica', system-ui, sans-serif;
+  --zerops-font-body: 'Roboto', system-ui, sans-serif;
+  --zerops-font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Material auto-flip surface pair. The token names mirror the
+     design-system atom — the SPA picks the light pair by default and
+     respects color-scheme. */
+  --zerops-bg: #F8F9FF;
+  --zerops-surface: #FFFFFF;
+  --zerops-on-surface: #161C25;
+  --zerops-on-surface-muted: #58606B;
+  --zerops-outline-variant: #D6D9E0;
+  --zerops-card-bg-light: #FFFFFF;
+  --zerops-card-bg-dark: #161C25;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --zerops-bg: #0F141C;
+    --zerops-surface: #161C25;
+    --zerops-on-surface: #F8F9FF;
+    --zerops-on-surface-muted: #A6ADB8;
+    --zerops-outline-variant: #2A313D;
+    --zerops-card-bg-light: #161C25;
+    --zerops-card-bg-dark: #F8F9FF;
+  }
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--zerops-font-body);
+  background: var(--zerops-bg);
+  color: var(--zerops-on-surface);
+  -webkit-font-smoothing: antialiased;
+}
+
+code,
+pre,
+.font-mono {
+  font-family: var(--zerops-font-mono);
+}
