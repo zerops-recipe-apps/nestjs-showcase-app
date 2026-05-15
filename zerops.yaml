@@ -21,11 +21,10 @@ zerops:
         - npm ci
         - npm run build
       deployFiles:
-        - dist
+        - dist/~
       cache:
         - node_modules
       envVariables:
         VITE_API_URL: ${API_URL}
     run:
       base: static
-      documentRoot: dist
