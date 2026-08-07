@@ -1,25 +1,66 @@
 {
   "name": "nestjs-showcase-app",
+  "version": "1.0.0",
+  "description": "React + Vite SPA frontend for the NestJS showcase recipe on Zerops",
+  "author": "Zerops",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zerops-recipe-apps/nestjs-showcase-app"
+  },
+  "homepage": "https://github.com/zerops-recipe-apps/nestjs-showcase-app",
+  "bugs": {
+    "url": "https://github.com/zerops-recipe-apps/nestjs-showcase-app/issues"
+  },
   "private": true,
-  "version": "0.1.0",
   "type": "module",
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
   },
   "devDependencies": {
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
-    "@vitejs/plugin-react": "^4.3.4",
-    "autoprefixer": "^10.5.0",
-    "postcss": "^8.5.14",
-    "tailwindcss": "^3.4.19",
-    "typescript": "^5.6.3",
-    "vite": "^5.4.11"
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "6.0.5",
+    "autoprefixer": "10.4.27",
+    "postcss": "8.5.23",
+    "tailwindcss": "3.4.19",
+    "typescript": "5.9.3",
+    "vite": "8.2.0"
+  },
+  "keywords": [
+    "react",
+    "vite",
+    "zerops",
+    "static",
+    "nestjs-showcase"
+  ],
+  "overrides": {
+    "brace-expansion": "1.1.18",
+    "brace-expansion@2": "2.1.4",
+    "brace-expansion@5": "5.0.9",
+    "minimatch@9": {
+      "brace-expansion": "2.1.4"
+    },
+    "minimatch@10": {
+      "brace-expansion": "5.0.9"
+    },
+    "minimatch@3": {
+      "brace-expansion": "1.1.18"
+    },
+    "fast-uri": "3.1.5",
+    "js-yaml": "4.3.1",
+    "uuid": "11.1.1",
+    "qs": "6.15.2",
+    "@babel/core": "7.29.7",
+    "body-parser": "2.3.0"
   }
 }
