@@ -4,7 +4,7 @@
 zerops:
   - setup: dev
     build:
-      base: nodejs@22
+      base: nodejs@24
       buildCommands:
         # `npm install` (not `npm ci`) so devDependencies land in
         # node_modules — Vite's HMR server is a devDependency and
@@ -17,7 +17,7 @@ zerops:
       cache:
         - node_modules
     run:
-      base: nodejs@22
+      base: nodejs@24
       ports:
         # 5173 is Vite's default dev port; httpSupport publishes it
         # through the L7 router so the dev subdomain reaches the
@@ -34,7 +34,7 @@ zerops:
 
   - setup: prod
     build:
-      base: nodejs@22
+      base: nodejs@24
       buildCommands:
         # `npm ci` for reproducible builds — fails fast on lockfile
         # drift, which is the right gate for production.
@@ -67,5 +67,5 @@ zerops:
       # time, SPA fallback for unmatched routes is built in, ~2 MB
       # RAM per replica. A dynamic `start:` directive is silently
       # ignored on this base; if you add server-rendered routes
-      # later, switch to `base: nodejs@22` with an explicit `start:`.
+      # later, switch to `base: nodejs@24` with an explicit `start:`.
       base: static

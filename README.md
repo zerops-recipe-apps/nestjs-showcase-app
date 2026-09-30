@@ -27,7 +27,7 @@ The main configuration file — place at repository root. It tells Zerops how to
 zerops:
   - setup: dev
     build:
-      base: nodejs@22
+      base: nodejs@24
       buildCommands:
         # `npm install` (not `npm ci`) so devDependencies land in
         # node_modules — Vite's HMR server is a devDependency and
@@ -40,7 +40,7 @@ zerops:
       cache:
         - node_modules
     run:
-      base: nodejs@22
+      base: nodejs@24
       ports:
         # 5173 is Vite's default dev port; httpSupport publishes it
         # through the L7 router so the dev subdomain reaches the
@@ -57,7 +57,7 @@ zerops:
 
   - setup: prod
     build:
-      base: nodejs@22
+      base: nodejs@24
       buildCommands:
         # `npm ci` for reproducible builds — fails fast on lockfile
         # drift, which is the right gate for production.
@@ -90,7 +90,7 @@ zerops:
       # time, SPA fallback for unmatched routes is built in, ~2 MB
       # RAM per replica. A dynamic `start:` directive is silently
       # ignored on this base; if you add server-rendered routes
-      # later, switch to `base: nodejs@22` with an explicit `start:`.
+      # later, switch to `base: nodejs@24` with an explicit `start:`.
       base: static
 ```
 
@@ -159,5 +159,5 @@ The project-scope `API_URL` / `FRONTEND_URL` constants compose from `${zeropsSub
 
 ### `base: static` is Nginx — no Node at request time
 
-The app ships a compiled Vite bundle to an Nginx-backed runtime: ~2 MB RAM per replica, SPA fallback built in. Anything that needs request-time code — server-rendered routes (Next.js / Nuxt server components), dynamic redirects, edge functions, BFF endpoints — requires switching to `base: nodejs@22` with an explicit `start:` and the runtime cost balloons to ~80 MB per replica. If your product is hybrid SSR/SPA, plan the runtime model up front rather than as an afterthought.
+The app ships a compiled Vite bundle to an Nginx-backed runtime: ~2 MB RAM per replica, SPA fallback built in. Anything that needs request-time code — server-rendered routes (Next.js / Nuxt server components), dynamic redirects, edge functions, BFF endpoints — requires switching to `base: nodejs@24` with an explicit `start:` and the runtime cost balloons to ~80 MB per replica. If your product is hybrid SSR/SPA, plan the runtime model up front rather than as an afterthought.
 <!-- #ZEROPS_EXTRACT_END:knowledge-base# -->

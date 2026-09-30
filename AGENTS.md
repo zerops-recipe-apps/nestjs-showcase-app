@@ -6,7 +6,7 @@ React 19 + TypeScript SPA built with Vite 8 — dashboard frontend for the NestJ
 
 - HTTP port: dev `5173` (vite dev) / prod `80` (nginx)
 - Siblings: `api` — `VITE_API_URL` baked at build time from `${API_URL}`
-- Runtime base: dev `nodejs@22` / prod `static`
+- Runtime base: dev `nodejs@24` / prod `static`
 
 ## Zerops dev
 
